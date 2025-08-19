@@ -55,7 +55,7 @@ function About() {
           <p>
             Você pode configurar o tempo de foco, descanso curto e descanso
             longo do jeito que quiser! Basta acessar a
-            <RouterLink href='#'>página de configurações</RouterLink> e ajustar
+            <RouterLink href='/settings'> página de configurações</RouterLink> e ajustar
             os minutos como preferir.
           </p>
 
@@ -101,7 +101,7 @@ function About() {
           <h3>📊 Histórico automático</h3>
           <p>
             Todas as suas tarefas e ciclos concluídos ficam salvos no{' '}
-            <a href='#'>histórico</a>, com status de completas ou interrompidas.
+            <a href='/history'>histórico</a>, com status de completas ou interrompidas.
             Assim, você consegue acompanhar sua evolução ao longo do tempo.
           </p>
 
