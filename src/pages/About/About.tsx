@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 
 function About() {
   useEffect(() => {
-    document.title = 'Entenda a Técnica Pomodoro - Selah'
-  },[])
+    document.title = 'Entenda a Técnica Pomodoro - Selah';
+  }, []);
 
   return (
     <MainTemplate>
@@ -55,8 +55,8 @@ function About() {
           <p>
             Você pode configurar o tempo de foco, descanso curto e descanso
             longo do jeito que quiser! Basta acessar a
-            <RouterLink href='/settings'> página de configurações</RouterLink> e ajustar
-            os minutos como preferir.
+            <RouterLink href='/settings'> página de configurações</RouterLink> e
+            ajustar os minutos como preferir.
           </p>
 
           <h3>🔁 Ciclos organizados em sequência</h3>
@@ -101,8 +101,9 @@ function About() {
           <h3>📊 Histórico automático</h3>
           <p>
             Todas as suas tarefas e ciclos concluídos ficam salvos no{' '}
-            <a href='/history'>histórico</a>, com status de completas ou interrompidas.
-            Assim, você consegue acompanhar sua evolução ao longo do tempo.
+            <RouterLink href='/history'>histórico</RouterLink>, com status de
+            completas ou interrompidas. Assim, você consegue acompanhar sua
+            evolução ao longo do tempo.
           </p>
 
           <h2>Por que usar o Selah?</h2>
