@@ -1,65 +1,63 @@
-# ⏱️ Selah - Técnica Pomodoro Repensada
+# ⏱️ Selah - The Pomodoro Technique, Reimagined 
+[Click here for PT-BR version](README.pt-br.md)
 
-O **Selah** é um aplicativo inspirado na técnica Pomodoro, mas com um toque a mais:  
-pausa com propósito, personalização total e acompanhamento automático da sua produtividade.  
-
----
-
-## 🍅 O que é a Técnica Pomodoro?
-
-A Técnica Pomodoro foi criada por **Francesco Cirillo** e consiste em dividir o trabalho em blocos de tempo curtos, chamados *Pomodoros*, intercalados com pausas.  
-O objetivo é manter o foco por períodos curtos e garantir descansos para evitar cansaço mental.
-
-### Como funciona o método tradicional?
-1. **Defina uma tarefa** para trabalhar.  
-2. **Trabalhe por 25 minutos** sem interrupções.  
-3. **Faça uma pausa curta de 5 minutos.**  
-4. **A cada 4 ciclos**, faça uma pausa longa (15–30 minutos).  
+**Selah** is an application inspired by the Pomodoro Technique, but with a special twist: purposeful breaks, full customization, and automatic tracking of your productivity.
 
 ---
 
-## 🚀 O diferencial do Selah
+## 🍅 What is the Pomodoro Technique?
 
-O Selah segue a base original da técnica, mas oferece recursos extras para potencializar seu foco:
+The Pomodoro Technique was created by **Francesco Cirillo** and involves breaking down work into short time blocks, called *Pomodoros*, interspersed with breaks. The goal is to maintain focus for short periods and ensure you get rest to avoid mental fatigue.
 
-### ⚙️ Personalização de tempos
-- Configure os minutos de **foco**, **descanso curto** e **descanso longo** como quiser.  
-- Basta ir na página de configurações e ajustar.  
-
-### 🔁 Ciclos inteligentes
-- O app organiza os ciclos automaticamente e salva tudo no histórico.  
-- **Padrão do Selah**:
-  - Ciclos **ímpares** → Trabalho (foco).  
-  - Ciclos **pares** → Descanso curto.  
-  - Ciclo **8** → Descanso longo especial.  
-
-### 🍅 Visualização clara
-- Bolinhas coloridas mostram em que parte do processo você está:  
-  - 🟣 Roxo → Trabalho (foco).  
-  - 🟡 Amarelo → Descanso curto.  
-  - 🔵 Azul → Descanso longo.  
-
-### 📊 Histórico automático
-- Cada tarefa e ciclo é registrado com status de **completo** ou **interrompido**.  
-- Acompanhe sua evolução ao longo do tempo sem precisar anotar nada.  
+### How does the traditional method work?
+1. **Define a task** to work on.
+2. **Work for 25 minutes** without interruptions.
+3. **Take a short 5-minute break.**
+4. **After every 4 cycles**, take a long break (15–30 minutes).
 
 ---
 
-## ✅ Por que usar o Selah?
-- Organize seu **foco com clareza**.  
-- Trabalhe e descanse **na medida certa**.  
-- **Personalize** seus ciclos e tempos.  
-- Tenha um **histórico completo** da sua produtividade.  
+## 🚀 What Makes Selah Different?
+
+Selah follows the original foundation of the technique but offers extra features to supercharge your focus:
+
+### ⚙️ Time Customization
+- Set the minutes for **focus**, **short break**, and **long break** however you like.
+- Just go to the settings page and adjust.
+
+### 🔁 Smart Cycles
+- The app automatically organizes the cycles and saves everything in your history.
+- **Selah's Default**:
+  - **Odd** cycles → Work (focus).
+  - **Even** cycles → Short break.
+  - **Cycle 8** → Special long break.
+
+### 🍅 Clear Visualization
+- Colored dots show you where you are in the process:
+  - 🟣 Purple → Work (focus).
+  - 🟡 Yellow → Short break.
+  - 🔵 Blue → Long break.
+
+### 📊 Automatic History
+- Each task and cycle is recorded with a **completed** or **interrupted** status.
+- Track your progress over time without needing to write anything down.
 
 ---
 
-## 🧘‍♂️ Filosofia Selah
-> *"Foco total, sem pressa, sem pausa, só vai!"*  
-
-Selah é uma palavra bíblica encontrada nos Salmos, que significa **pausa para refletir**.  
-Esse é o espírito do app: trabalhar com foco, descansar com propósito.  
+## ✅ Why Use Selah?
+- Organize your **focus with clarity**.
+- Work and rest **in the right measure**.
+- **Personalize** your cycles and times.
+- Get a **complete history** of your productivity.
 
 ---
 
-## 📜 Licença
-Este projeto é open-source e distribuído sob a licença MIT.  
+## 🧘‍♂️ Selah's Philosophy
+> *"Total focus, no rush, no pause, just go!"*
+
+Selah is a biblical word found in the Psalms, meaning **a pause for reflection**. This is the spirit of the app: work with focus, rest with purpose.
+
+---
+
+## 📜 License
+This project is open-source and distributed under the MIT license.
