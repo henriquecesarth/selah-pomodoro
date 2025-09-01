@@ -14,8 +14,9 @@ type TaskContextProviderProps = {
 };
 
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
+  localStorageCleaner();
+
   const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
-    localStorageCleaner();
     const localState = localStorage.getItem('state');
 
     if (!localState) return initialTaskState;
@@ -44,9 +45,9 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
       if (state.config.mode === 'Aly Mode') {
         playBeepRef.current?.();
         dispatch({
-        type: TaskActionsTypes.COUNT_DOWN,
-        payload: { secondsRemaining },
-      });
+          type: TaskActionsTypes.COUNT_DOWN,
+          payload: { secondsRemaining },
+        });
       } else {
         playBeepRef.current?.();
         playBeepRef.current = null;
