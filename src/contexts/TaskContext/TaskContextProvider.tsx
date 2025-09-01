@@ -7,6 +7,7 @@ import { TaskActionsTypes } from './taskActions';
 import { loadBeep } from '../../utils/loadBeep';
 import { showMessage } from '../../adapters/showMessage';
 import type { TaskStateModel } from '../../models/TaskStateModel';
+import { localStorageCleaner } from '../../utils/localStorageCleaner';
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ type TaskContextProviderProps = {
 
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
+    localStorageCleaner();
     const localState = localStorage.getItem('state');
 
     if (!localState) return initialTaskState;
