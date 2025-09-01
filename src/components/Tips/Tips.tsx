@@ -9,7 +9,7 @@ const Tips = ({ nextCycleType }: TipsProps) => {
   const { state } = useTaskContext();
 
   const tipsForWhenActiveTask =
-    state.language === 'pt-BR'
+    state.config.language === 'pt-BR'
       ? {
           workTime: <span>Mantenha o foco e evite distrações.</span>,
           shortBreakTime: <span>Aproveite para se alongar e relaxar.</span>,
@@ -25,51 +25,54 @@ const Tips = ({ nextCycleType }: TipsProps) => {
           ),
         };
 
-  const tipsForWhenNotActiveTask = state.language === 'pt-BR' ? {
-    workTime: (
-      <span>
-        Nesse ciclo
-        <strong> tenha foco </strong>
-        por <strong>{state.config.workTime} min.</strong>
-      </span>
-    ),
-    shortBreakTime: (
-      <span>
-        Nesse ciclo
-        <strong> descanse </strong>
-        por <strong>{state.config.shortBreakTime} min.</strong>
-      </span>
-    ),
-    longBreakTime: (
-      <span>
-        Nesse ciclo
-        <strong> descanse </strong>
-        por <strong>{state.config.longBreakTime} min.</strong>
-      </span>
-    ),
-  } : {
-    workTime: (
-      <span>
-        In this cycle
-        <strong> have focus </strong>
-        for <strong>{state.config.workTime} min.</strong>
-      </span>
-    ),
-    shortBreakTime: (
-      <span>
-        In this cycle
-        <strong> relax </strong>
-        for <strong>{state.config.shortBreakTime} min.</strong>
-      </span>
-    ),
-    longBreakTime: (
-      <span>
-        In this cycle
-        <strong> relax </strong>
-        for <strong>{state.config.longBreakTime} min.</strong>
-      </span>
-    ),
-  };
+  const tipsForWhenNotActiveTask =
+    state.config.language === 'pt-BR'
+      ? {
+          workTime: (
+            <span>
+              Nesse ciclo
+              <strong> tenha foco </strong>
+              por <strong>{state.config.type.workTime} min.</strong>
+            </span>
+          ),
+          shortBreakTime: (
+            <span>
+              Nesse ciclo
+              <strong> descanse </strong>
+              por <strong>{state.config.type.shortBreakTime} min.</strong>
+            </span>
+          ),
+          longBreakTime: (
+            <span>
+              Nesse ciclo
+              <strong> descanse </strong>
+              por <strong>{state.config.type.longBreakTime} min.</strong>
+            </span>
+          ),
+        }
+      : {
+          workTime: (
+            <span>
+              In this cycle
+              <strong> have focus </strong>
+              for <strong>{state.config.type.workTime} min.</strong>
+            </span>
+          ),
+          shortBreakTime: (
+            <span>
+              In this cycle
+              <strong> relax </strong>
+              for <strong>{state.config.type.shortBreakTime} min.</strong>
+            </span>
+          ),
+          longBreakTime: (
+            <span>
+              In this cycle
+              <strong> relax </strong>
+              for <strong>{state.config.type.longBreakTime} min.</strong>
+            </span>
+          ),
+        };
 
   return (
     <>

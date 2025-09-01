@@ -20,31 +20,44 @@ const Form = () => {
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
-  const messages = state.language === 'pt-BR' ? {
-    messageWarning: 'Digite o nome da tarefa',
-    messageSuccess: 'Tarefa iniciada',
-    messageError: 'Tarefa interrompida',
-  } : {
-    messageWarning: 'Enter the task name',
-    messageSuccess: 'Task started',
-    messageError: 'Task interrupted',
-  };
+  const messages =
+    state.config.language === 'pt-BR'
+      ? {
+          messageWarning: 'Digite o nome da tarefa',
+          messageSuccess: 'Tarefa iniciada',
+          messageError: 'Tarefa interrompida',
+          messageEndSucess: 'Tarefa concluida',
+          messageConfirm: 'Tem certeza que deseja parar essa tarefa?',
+        }
+      : {
+          messageWarning: 'Enter the task name',
+          messageSuccess: 'Task started',
+          messageError: 'Task interrupted',
+          messageEndSucess: 'Task completed',
+          messageConfirm: 'Are you sure you want to stop this task?',
+        };
 
-  const inputLabels = state.language === 'pt-BR' ? {
-    labelText: 'Tarefa',
-    placeHolder: 'Digite o nome da tarefa',
-  } : {
-    labelText: 'Task',
-    placeHolder: 'Enter the task name',
-  };
+  const inputLabels =
+    state.config.language === 'pt-BR'
+      ? {
+          labelText: 'Tarefa',
+          placeHolder: 'Digite o nome da tarefa',
+        }
+      : {
+          labelText: 'Task',
+          placeHolder: 'Enter the task name',
+        };
 
-  const buttonLabels = state.language === 'pt-BR' ? {
-    start: 'Iniciar Tarefa',
-    stop: 'Parar Tarefa',
-  } : {
-    start: 'Start Task',
-    stop: 'Stop Task',
-  };
+  const buttonLabels =
+    state.config.language === 'pt-BR'
+      ? {
+          start: 'Iniciar Tarefa',
+          stop: 'Parar Tarefa',
+        }
+      : {
+          start: 'Start Task',
+          stop: 'Stop Task',
+        };
 
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,7 +78,7 @@ const Form = () => {
       startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
-      duration: state.config[nextCycleType],
+      duration: state.config.type[nextCycleType],
       type: nextCycleType,
     };
 
@@ -74,8 +87,18 @@ const Form = () => {
   };
 
   const handleStopTask = () => {
-    dispatch({ type: TaskActionsTypes.STOP_TASK });
-    showMessage.error(messages.messageError);
+    showMessage.dismiss();
+    showMessage.confirm(messages.messageConfirm, (confirmation: boolean) => {
+      if (!confirmation) return;
+
+      if (state.secondsRemaining <= 0) {
+        dispatch({ type: TaskActionsTypes.COMPLETE_TASK });
+        showMessage.success(messages.messageEndSucess);
+      } else {
+        dispatch({ type: TaskActionsTypes.STOP_TASK });
+        showMessage.error(messages.messageError);
+      }
+    });
   };
 
   return (

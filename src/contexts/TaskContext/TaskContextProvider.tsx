@@ -29,7 +29,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   });
 
   const messageSuccess =
-    state.language === 'pt-BR' ? 'Tarefa concluida' : 'Task completed';
+    state.config.language === 'pt-BR' ? 'Tarefa concluida' : 'Task completed';
 
   const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
 
@@ -39,12 +39,20 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
     const secondsRemaining = e.data;
 
     if (secondsRemaining <= 0) {
-      playBeepRef.current?.();
-      playBeepRef.current = null;
+      if (state.config.mode === 'Aly Mode') {
+        playBeepRef.current?.();
+        dispatch({
+        type: TaskActionsTypes.COUNT_DOWN,
+        payload: { secondsRemaining },
+      });
+      } else {
+        playBeepRef.current?.();
+        playBeepRef.current = null;
 
-      dispatch({ type: TaskActionsTypes.COMPLETE_TASK });
-      worker.terminate();
-      showMessage.success(messageSuccess);
+        dispatch({ type: TaskActionsTypes.COMPLETE_TASK });
+        worker.terminate();
+        showMessage.success(messageSuccess);
+      }
     } else {
       dispatch({
         type: TaskActionsTypes.COUNT_DOWN,
@@ -55,7 +63,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
 
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
-    document.documentElement.lang = state.language;
+    document.documentElement.lang = state.config.language;
 
     if (!state.activeTask) {
       worker.terminate();

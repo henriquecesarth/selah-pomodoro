@@ -20,19 +20,22 @@ const Menu = () => {
     () => (localStorage.getItem('theme') as PageTheme) || 'dark'
   );
 
-  const linksLabels = state.language === 'pt-BR' ? {
-    home: 'Ir para a Home',
-    history: 'Ver histórico',
-    settings: 'Ir para as configurações',
-    theme: 'Mudar tema da página',
-    language: 'Mudar o idioma da página',
-  } : {
-    home: 'Go to Home',
-    history: 'Go to History',
-    settings: 'Go to Settings',
-    theme: 'Change page theme',
-    language: 'Change page language',
-  };
+  const linksLabels =
+    state.config.language === 'pt-BR'
+      ? {
+          home: 'Ir para a Home',
+          history: 'Ver histórico',
+          settings: 'Ir para as configurações',
+          theme: 'Mudar tema da página',
+          language: 'Mudar o idioma da página',
+        }
+      : {
+          home: 'Go to Home',
+          history: 'Go to History',
+          settings: 'Go to Settings',
+          theme: 'Change page theme',
+          language: 'Change page language',
+        };
 
   const handleThemeChange = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>

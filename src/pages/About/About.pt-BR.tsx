@@ -86,6 +86,16 @@ const About_pt_BR = () => {
         completas ou interrompidas. Assim, você consegue acompanhar sua evolução
         ao longo do tempo.
       </p>
+      <h3>🎛️ Diferentes modos de utilização</h3>
+      <ul>
+        <li>
+          <strong>Normal: </strong>Modo padrão onde o pomodoro funciona da forma
+          clássica
+        </li>
+        <li>
+          <strong>Aly Mode: </strong>Modo focado em pessoas mais desatentas
+        </li>
+      </ul>
       <h2>Por que usar o Selah?</h2>
       <ul>
         <li>✅ Organize seu foco com clareza.</li>

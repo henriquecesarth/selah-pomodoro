@@ -22,9 +22,12 @@ export type TaskActionsWithPayload =
   | {
       type: TaskActionsTypes.SAVE_CONFIG;
       payload: {
-        workTime: number;
-        shortBreakTime: number;
-        longBreakTime: number;
+        type: {
+          workTime: number;
+          shortBreakTime: number;
+          longBreakTime: number;
+        };
+        mode: string;
       };
     };
 

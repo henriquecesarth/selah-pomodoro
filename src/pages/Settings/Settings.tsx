@@ -9,55 +9,61 @@ import { TaskActionsTypes } from '../../contexts/TaskContext/taskActions';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { showMessage } from '../../adapters/showMessage';
 import styles from './Settings.module.css';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 const Settings = () => {
   const { state, dispatch } = useTaskContext();
   const workTimeRef = useRef<HTMLInputElement>(null);
-  const shortTimeBreakRef = useRef<HTMLInputElement>(null);
-  const longTimeBreakRef = useRef<HTMLInputElement>(null);
+  const shortBreakTimeRef = useRef<HTMLInputElement>(null);
+  const longBreakTimeRef = useRef<HTMLInputElement>(null);
+  const modeRef = useRef<HTMLSelectElement>(null);
 
   const errorMessages =
-    state.language === 'pt-BR'
+    state.config.language === 'pt-BR'
       ? {
           nanError: 'Por favor, preencha TODOS os campos somente com números.',
           workTimeError: 'O tempo de foco deve ser entre 1 e 99 minutos.',
-          shortTimeBreakError:
+          shortBreakTimeError:
             'O tempo de descanso curto deve ser entre 1 e 30 minutos.',
-          longTimeBreakError:
+          longBreakTimeError:
             'O tempo de descanso longo deve ser entre 1 e 60 minutos.',
         }
       : {
           nanError: 'Please fill ALL fields only with numbers.',
           workTimeError: 'The focus time should be between 1 and 99 minutes.',
-          shortTimeBreakError:
+          shortBreakTimeError:
             'The short break time should be between 1 and 30 minutes.',
-          longTimeBreakError:
+          longBreakTimeError:
             'The long break time should be between 1 and 60 minutes.',
         };
 
   const messageSuccess =
-    state.language === 'pt-BR'
+    state.config.language === 'pt-BR'
       ? 'Configurações salvas com sucesso!'
       : 'Settings saved successfully!';
 
   const documentTitle =
-    state.language === 'pt-BR' ? 'Configurações' : 'Settings';
+    state.config.language === 'pt-BR' ? 'Configurações' : 'Settings';
 
   const inputLabels =
-    state.language === 'pt-BR'
+    state.config.language === 'pt-BR'
       ? {
           workTime: 'Tempo de Foco (em minutos)',
-          shortTimeBreak: 'Tempo de Descanso Curto (em minutos)',
-          longTimeBreak: 'Tempo de Descanso Longo (em minutos)',
+          shortBreakTime: 'Tempo de Descanso Curto (em minutos)',
+          longBreakTime: 'Tempo de Descanso Longo (em minutos)',
+          mode: 'Modo de funcionamento',
         }
       : {
           workTime: 'Focus Time (in minutes)',
-          shortTimeBreak: 'Short Break Time (in minutes)',
-          longTimeBreak: 'Long Break Time (in minutes)',
+          shortBreakTime: 'Short Break Time (in minutes)',
+          longBreakTime: 'Long Break Time (in minutes)',
+          mode: 'Mode',
         };
 
   const buttonLabel =
-    state.language === 'pt-BR' ? 'Salvar Configurações' : 'Save Settings';
+    state.config.language === 'pt-BR'
+      ? 'Salvar Configurações'
+      : 'Save Settings';
 
   const handleSaveConfiguration = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,26 +72,29 @@ const Settings = () => {
     const formErrors = [];
 
     const payload = {
-      workTime: Number(workTimeRef.current?.value),
-      shortBreakTime: Number(shortTimeBreakRef.current?.value),
-      longBreakTime: Number(longTimeBreakRef.current?.value),
+      type: {
+        workTime: Number(workTimeRef.current?.value),
+        shortBreakTime: Number(shortBreakTimeRef.current?.value),
+        longBreakTime: Number(longBreakTimeRef.current?.value),
+      },
+      mode: String(modeRef.current?.value),
     };
 
     if (
-      isNaN(payload.workTime) ||
-      isNaN(payload.shortBreakTime) ||
-      isNaN(payload.longBreakTime)
+      isNaN(payload.type.workTime) ||
+      isNaN(payload.type.shortBreakTime) ||
+      isNaN(payload.type.longBreakTime)
     )
       formErrors.push(errorMessages.nanError);
 
-    if (payload.workTime <= 0 || payload.workTime > 99)
+    if (payload.type.workTime <= 0 || payload.type.workTime > 99)
       formErrors.push(errorMessages.workTimeError);
 
-    if (payload.shortBreakTime <= 0 || payload.shortBreakTime > 30)
-      formErrors.push(errorMessages.shortTimeBreakError);
+    if (payload.type.shortBreakTime <= 0 || payload.type.shortBreakTime > 30)
+      formErrors.push(errorMessages.shortBreakTimeError);
 
-    if (payload.longBreakTime <= 0 || payload.longBreakTime > 60)
-      formErrors.push(errorMessages.longTimeBreakError);
+    if (payload.type.longBreakTime <= 0 || payload.type.longBreakTime > 60)
+      formErrors.push(errorMessages.longBreakTimeError);
 
     if (formErrors.length > 0) {
       formErrors.forEach((error) => {
@@ -100,18 +109,18 @@ const Settings = () => {
 
   useEffect(() => {
     document.title = documentTitle + ' - Selah';
-  }, []);
+  }, [documentTitle]);
 
   return (
     <MainTemplate>
       <Container>
         <Heading>
-          {state.language === 'pt-BR' ? 'Configurações' : 'Settings'}
-          </Heading>
+          {state.config.language === 'pt-BR' ? 'Configurações' : 'Settings'}
+        </Heading>
       </Container>
       <Container>
         <p style={{ textAlign: 'center' }}>
-          {state.language === 'pt-BR'
+          {state.config.language === 'pt-BR'
             ? 'Modifique as configurações para tempo de foco, descanso curto e descanso longo.'
             : 'Modify the settings for focus time, short break time and long break time.'}
         </p>
@@ -122,7 +131,7 @@ const Settings = () => {
             <Input
               type='number'
               ref={workTimeRef}
-              defaultValue={state.config.workTime}
+              defaultValue={state.config.type.workTime}
               id='workTime'
               labelText={inputLabels.workTime}
             />
@@ -130,19 +139,28 @@ const Settings = () => {
           <div className={styles.formRow}>
             <Input
               type='number'
-              ref={shortTimeBreakRef}
-              defaultValue={state.config.shortBreakTime}
-              id='shortTimeBreak'
-              labelText={inputLabels.shortTimeBreak}
+              ref={shortBreakTimeRef}
+              defaultValue={state.config.type.shortBreakTime}
+              id='shortBreakTime'
+              labelText={inputLabels.shortBreakTime}
             />
           </div>
           <div className={styles.formRow}>
             <Input
               type='number'
-              ref={longTimeBreakRef}
-              defaultValue={state.config.longBreakTime}
-              id='longTimeBreak'
-              labelText={inputLabels.longTimeBreak}
+              ref={longBreakTimeRef}
+              defaultValue={state.config.type.longBreakTime}
+              id='longBreakTime'
+              labelText={inputLabels.longBreakTime}
+            />
+          </div>
+          <div className={styles.formRow}>
+            <Dropdown
+              id='mode'
+              ref={modeRef}
+              values={['Normal', 'Aly Mode']}
+              labelText={inputLabels.mode}
+              defaultValue={state.config.mode}
             />
           </div>
           <div className={styles.formRow}>

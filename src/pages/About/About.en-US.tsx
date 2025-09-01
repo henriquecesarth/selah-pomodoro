@@ -92,7 +92,17 @@ const About_en_US = () => {
         completed or interrupted. This allows you to track your progress over
         time.
       </p>
-
+      <h3>🎛️ Different Modes</h3>
+      <ul>
+        <li>
+          <strong>Normal: </strong>Default mode, following the original Pomodoro
+          technique
+        </li>
+        <li>
+          <strong>Aly Mode: </strong>Mode focused on people that tend to be more
+          distracted.
+        </li>
+      </ul>
       <h2>Why use Selah?</h2>
       <ul>
         <li>✅ Organize your focus with clarity.</li>

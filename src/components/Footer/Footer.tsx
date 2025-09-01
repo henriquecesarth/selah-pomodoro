@@ -8,14 +8,14 @@ const Footer = () => {
   return (
     <div className={styles.container}>
       <RouterLink href='/about'>
-        {state.language === 'pt-BR'
+        {state.config.language === 'pt-BR'
           ? 'Entenda a técnica Pomodoro'
           : 'Understand the Pomodoro Technique'}{' '}
         🍅
       </RouterLink>
       <RouterLink href='/'>
         Selah &copy; {new Date().getFullYear()} -{' '}
-        {state.language === 'pt-BR' ? 'Feito com' : 'Made with'} 💜
+        {state.config.language === 'pt-BR' ? 'Feito com' : 'Made with'} 💜
       </RouterLink>
     </div>
   );

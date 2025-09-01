@@ -1,5 +1,9 @@
 export const formatSecondsToMinutes = (totalSeconds: number) => {
-    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-    const seconds = String(totalSeconds % 60).padStart(2, '0');
-    return `${minutes}:${seconds}`;
-}
+  const isNegative = totalSeconds < 0;
+  const absoluteSeconds = Math.abs(totalSeconds);
+
+  const minutes = String(Math.floor(absoluteSeconds / 60)).padStart(2, '0');
+  const seconds = String(absoluteSeconds % 60).padStart(2, '0');
+
+  return `${isNegative ? '-' : ''}${minutes}:${seconds}`;
+};

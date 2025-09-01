@@ -77,13 +77,16 @@ export const taskReducer = (
     case TaskActionsTypes.SAVE_CONFIG: {
       return {
         ...state,
-        config: { ...action.payload },
+        config: { ...state.config, ...action.payload },
       };
     }
     case TaskActionsTypes.CHANGE_LANGUAGE: {
       return {
         ...state,
-        language: state.language === 'pt-BR' ? 'en-US' : 'pt-BR',
+        config: {
+          ...state.config,
+          language: state.config.language === 'pt-BR' ? 'en-US' : 'pt-BR',
+        },
       };
     }
     default:

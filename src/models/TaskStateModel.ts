@@ -7,9 +7,12 @@ export type TaskStateModel = {
   activeTask: TaskModel | null;
   currentCycle: number;
   config: {
-    workTime: number;
-    shortBreakTime: number;
-    longBreakTime: number;
+    type: {
+      workTime: number;
+      shortBreakTime: number;
+      longBreakTime: number;
+    };
+    mode: string;
+    language: string;
   };
-  language: string;
 };

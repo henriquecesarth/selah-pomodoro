@@ -16,7 +16,11 @@ function NotFound() {
     <MainTemplate>
       <Container>
         <GenericHtml>
-          {state.language === 'pt-BR' ? <NotFound_pt_BR /> : <NotFound_en_US />}
+          {state.config.language === 'pt-BR' ? (
+            <NotFound_pt_BR />
+          ) : (
+            <NotFound_en_US />
+          )}
         </GenericHtml>
       </Container>
     </MainTemplate>

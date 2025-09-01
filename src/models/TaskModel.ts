@@ -1,11 +1,11 @@
-import type { TaskStateModel } from "./TaskStateModel";
+import type { TaskStateModel } from './TaskStateModel';
 
 export type TaskModel = {
-    id: string;
-    name: string;
-    duration: number;
-    startDate: number;
-    completeDate: number | null;
-    interruptDate: number | null;
-    type: keyof TaskStateModel['config'];
-}
+  id: string;
+  name: string;
+  duration: number;
+  startDate: number;
+  completeDate: number | null;
+  interruptDate: number | null;
+  type: keyof TaskStateModel['config']['type'];
+};

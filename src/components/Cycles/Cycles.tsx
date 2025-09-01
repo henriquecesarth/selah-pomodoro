@@ -9,20 +9,23 @@ const Cycles = () => {
 
   const cycleStep = Array.from({ length: state.currentCycle });
 
-  const cycleDescriptionMap = state.language === 'pt-BR' ? {
-    workTime: 'Indicador de Ciclo de Foco',
-    shortBreakTime: 'Indicador de Ciclo de Descanso Curto',
-    longBreakTime: 'Indicador de Ciclo de Descanso Longo',
-  } : {
-    workTime: 'Focus Cicle Indicator',
-    shortBreakTime: 'Short Break Cicle Indicator',
-    longBreakTime: 'Long Break Cicle Indicator',
-  };
+  const cycleDescriptionMap =
+    state.config.language === 'pt-BR'
+      ? {
+          workTime: 'Indicador de Ciclo de Foco',
+          shortBreakTime: 'Indicador de Ciclo de Descanso Curto',
+          longBreakTime: 'Indicador de Ciclo de Descanso Longo',
+        }
+      : {
+          workTime: 'Focus Cicle Indicator',
+          shortBreakTime: 'Short Break Cicle Indicator',
+          longBreakTime: 'Long Break Cicle Indicator',
+        };
 
   return (
     <div className={styles.cycles}>
-      <span>{state.language === 'pt-BR' ? 'Ciclos' : 'Cycles'}:</span>
-      <div className={styles.cycleDots}> 
+      <span>{state.config.language === 'pt-BR' ? 'Ciclos' : 'Cycles'}:</span>
+      <div className={styles.cycleDots}>
         {cycleStep.map((_, index) => {
           const nextCycle = getNextCycle(index);
           const nextCycleType = getNextCycleType(nextCycle);

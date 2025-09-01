@@ -10,16 +10,20 @@ function About() {
   const { state } = useTaskContext();
   useEffect(() => {
     document.title =
-      state.language === 'pt-BR'
+      state.config.language === 'pt-BR'
         ? 'Entenda a Técnica Pomodoro - Selah'
         : 'Understand the Pomodoro Technique - Selah';
-  }, []);
+  }, [state.config.language]);
 
   return (
     <MainTemplate>
       <Container>
         <GenericHtml>
-          {state.language === 'pt-BR' ? <About_pt_BR /> : <About_en_US />}
+          {state.config.language === 'pt-BR' ? (
+            <About_pt_BR />
+          ) : (
+            <About_en_US />
+          )}
         </GenericHtml>
       </Container>
     </MainTemplate>
