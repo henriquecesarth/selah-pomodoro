@@ -16,6 +16,49 @@ const Settings = () => {
   const shortTimeBreakRef = useRef<HTMLInputElement>(null);
   const longTimeBreakRef = useRef<HTMLInputElement>(null);
 
+  const errorMessages =
+    state.language === 'pt-BR'
+      ? {
+          nanError: 'Por favor, preencha TODOS os campos somente com números.',
+          workTimeError: 'O tempo de foco deve ser entre 1 e 99 minutos.',
+          shortTimeBreakError:
+            'O tempo de descanso curto deve ser entre 1 e 30 minutos.',
+          longTimeBreakError:
+            'O tempo de descanso longo deve ser entre 1 e 60 minutos.',
+        }
+      : {
+          nanError: 'Please fill ALL fields only with numbers.',
+          workTimeError: 'The focus time should be between 1 and 99 minutes.',
+          shortTimeBreakError:
+            'The short break time should be between 1 and 30 minutes.',
+          longTimeBreakError:
+            'The long break time should be between 1 and 60 minutes.',
+        };
+
+  const messageSuccess =
+    state.language === 'pt-BR'
+      ? 'Configurações salvas com sucesso!'
+      : 'Settings saved successfully!';
+
+  const documentTitle =
+    state.language === 'pt-BR' ? 'Configurações' : 'Settings';
+
+  const inputLabels =
+    state.language === 'pt-BR'
+      ? {
+          workTime: 'Tempo de Foco (em minutos)',
+          shortTimeBreak: 'Tempo de Descanso Curto (em minutos)',
+          longTimeBreak: 'Tempo de Descanso Longo (em minutos)',
+        }
+      : {
+          workTime: 'Focus Time (in minutes)',
+          shortTimeBreak: 'Short Break Time (in minutes)',
+          longTimeBreak: 'Long Break Time (in minutes)',
+        };
+
+  const buttonLabel =
+    state.language === 'pt-BR' ? 'Salvar Configurações' : 'Save Settings';
+
   const handleSaveConfiguration = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     showMessage.dismiss();
@@ -33,22 +76,16 @@ const Settings = () => {
       isNaN(payload.shortBreakTime) ||
       isNaN(payload.longBreakTime)
     )
-      formErrors.push(
-        'Por favor, preencha TODOS os campos somente com números.'
-      );
+      formErrors.push(errorMessages.nanError);
 
     if (payload.workTime <= 0 || payload.workTime > 99)
-      formErrors.push('O tempo de foco deve ser entre 1 e 99 minutos.');
+      formErrors.push(errorMessages.workTimeError);
 
     if (payload.shortBreakTime <= 0 || payload.shortBreakTime > 30)
-      formErrors.push(
-        'O tempo de descanso curto deve ser entre 1 e 30 minutos.'
-      );
+      formErrors.push(errorMessages.shortTimeBreakError);
 
     if (payload.longBreakTime <= 0 || payload.longBreakTime > 60)
-      formErrors.push(
-        'O tempo de descanso longo deve ser entre 1 e 60 minutos.'
-      );
+      formErrors.push(errorMessages.longTimeBreakError);
 
     if (formErrors.length > 0) {
       formErrors.forEach((error) => {
@@ -58,22 +95,25 @@ const Settings = () => {
     }
 
     dispatch({ type: TaskActionsTypes.SAVE_CONFIG, payload });
-    showMessage.success('Configurações salvas com sucesso!');
+    showMessage.success(messageSuccess);
   };
 
   useEffect(() => {
-    document.title = 'Configurações - Selah';
+    document.title = documentTitle + ' - Selah';
   }, []);
 
   return (
     <MainTemplate>
       <Container>
-        <Heading>Cofigurações</Heading>
+        <Heading>
+          {state.language === 'pt-BR' ? 'Configurações' : 'Settings'}
+          </Heading>
       </Container>
       <Container>
         <p style={{ textAlign: 'center' }}>
-          Modifique as configurações para tempo de foco, descanso curto e
-          descanso longo.
+          {state.language === 'pt-BR'
+            ? 'Modifique as configurações para tempo de foco, descanso curto e descanso longo.'
+            : 'Modify the settings for focus time, short break time and long break time.'}
         </p>
       </Container>
       <Container>
@@ -84,7 +124,7 @@ const Settings = () => {
               ref={workTimeRef}
               defaultValue={state.config.workTime}
               id='workTime'
-              labelText='Tempo de foco (minutos)'
+              labelText={inputLabels.workTime}
             />
           </div>
           <div className={styles.formRow}>
@@ -93,7 +133,7 @@ const Settings = () => {
               ref={shortTimeBreakRef}
               defaultValue={state.config.shortBreakTime}
               id='shortTimeBreak'
-              labelText='Tempo de descanso curto (minutos)'
+              labelText={inputLabels.shortTimeBreak}
             />
           </div>
           <div className={styles.formRow}>
@@ -102,15 +142,15 @@ const Settings = () => {
               ref={longTimeBreakRef}
               defaultValue={state.config.longBreakTime}
               id='longTimeBreak'
-              labelText='Tempo de descanso longo (minutos)'
+              labelText={inputLabels.longTimeBreak}
             />
           </div>
           <div className={styles.formRow}>
             <Button
               icon={<SaveIcon />}
               color='green'
-              title='Salvar Configurações'
-              aria-label='Salvar Configurações'
+              title={buttonLabel}
+              aria-label={buttonLabel}
             />
           </div>
         </form>

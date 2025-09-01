@@ -24,6 +24,33 @@ function History() {
     }
   );
 
+  const messageConfirm =
+    state.language === 'pt-BR'
+      ? 'Você tem certeza que deseja apagar todo o histórico?'
+      : 'Are you sure you want to delete all history?';
+
+  const buttonLabel =
+    state.language === 'pt-BR'
+      ? 'Apagar todo o histórico'
+      : 'Delete all history';
+
+  const columnsTitles =
+    state.language === 'pt-BR'
+      ? {
+          task: 'Tarefa',
+          duration: 'Duração',
+          startDate: 'Data',
+          status: 'Status',
+          type: 'Tipo',
+        }
+      : {
+          task: 'Task',
+          duration: 'Duration',
+          startDate: 'Date',
+          status: 'Status',
+          type: 'Type',
+        };
+
   const handleSortTasks = ({ field }: Pick<SortTasksOptions, 'field'>) => {
     const newDirection = sortTasksOptions.direction === 'asc' ? 'desc' : 'asc';
 
@@ -36,7 +63,7 @@ function History() {
 
   const handleResetHistory = () => {
     showMessage.dismiss();
-    showMessage.confirm('Você tem certeza que deseja apagar todo o histórico?', (confirmation: boolean) => {
+    showMessage.confirm(messageConfirm, (confirmation: boolean) => {
       if (!confirmation) return;
       dispatch({ type: TaskActionsTypes.RESET_TASKS });
     });
@@ -44,7 +71,7 @@ function History() {
 
   useEffect(() => {
     document.title = 'Histórico - Selah';
-  }, [])
+  }, []);
 
   useEffect(() => {
     setSortTasksOptions((prev) => ({
@@ -61,13 +88,13 @@ function History() {
     <MainTemplate>
       <Container>
         <Heading>
-          <span>History</span>
+          <span>{state.language === 'pt-BR' ? 'Histórico' : 'History'}</span>
           <span onClick={handleResetHistory} className={styles.buttonContainer}>
             <Button
               color='red'
               icon={<TrashIcon />}
-              aria-label='Apagar todo o histórico'
-              title='Apagar todo o histórico'
+              aria-label={buttonLabel}
+              title={buttonLabel}
             />
           </span>
         </Heading>
@@ -83,31 +110,38 @@ function History() {
                     className={styles.thSort}
                     onClick={() => handleSortTasks({ field: 'name' })}
                   >
-                    Tarefa ⭥
+                    {columnsTitles.task}
                   </th>
                   <th
                     className={styles.thSort}
                     onClick={() => handleSortTasks({ field: 'duration' })}
                   >
-                    Duração ⭥
+                    {columnsTitles.duration}
                   </th>
                   <th
                     className={styles.thSort}
                     onClick={() => handleSortTasks({ field: 'startDate' })}
                   >
-                    Data ⭥
+                    {columnsTitles.startDate}
                   </th>
-                  <th>Status</th>
-                  <th>Tipo</th>
+                  <th>{columnsTitles.status}</th>
+                  <th>{columnsTitles.type}</th>
                 </tr>
               </thead>
               <tbody>
                 {sortTasksOptions.tasks.map((task, index) => {
-                  const taskTypes = {
-                    workTime: 'Foco',
-                    shortBreakTime: 'Pausa curta',
-                    longBreakTime: 'Pausa longa',
-                  };
+                  const taskTypes =
+                    state.language === 'pt-BR'
+                      ? {
+                          workTime: 'Foco',
+                          shortBreakTime: 'Pausa curta',
+                          longBreakTime: 'Pausa longa',
+                        }
+                      : {
+                          workTime: 'Focus',
+                          shortBreakTime: 'Short break',
+                          longBreakTime: 'Long break',
+                        };
 
                   return (
                     <tr key={index}>
@@ -126,7 +160,9 @@ function History() {
 
         {sortTasksOptions.tasks.length === 0 && (
           <p style={{ textAlign: 'center' }}>
-            Nenhuma tarefa no histórico. Vá fazer uma agora!
+            {state.language === 'pt-BR'
+              ? 'Nenhuma tarefa no histórico. Vá fazer uma agora!'
+              : "No history. Let's do one now!"}
           </p>
         )}
       </Container>

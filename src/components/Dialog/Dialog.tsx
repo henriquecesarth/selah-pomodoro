@@ -4,6 +4,18 @@ import Button from '../Button/Button';
 import { ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
 
 const Dialog = ({ closeToast, data }: ToastContentProps<string>) => {
+
+  const buttonsLabel =
+    document.documentElement.lang === 'pt-BR'
+      ? {
+          confirm: 'Confirmar ação e fechar',
+          cancel: 'Cancelar ação e fechar',
+        }
+      : {
+          confirm: 'Confirm action and close',
+          cancel: 'Cancel action and close',
+        };
+
   return (
     <>
       <div className={styles.container}>
@@ -16,8 +28,8 @@ const Dialog = ({ closeToast, data }: ToastContentProps<string>) => {
             }}
             color='green'
             icon={<ThumbsUpIcon />}
-            aria-label='Confirmar ação e fechar'
-            title='Confirmar ação e fechar'
+            aria-label={buttonsLabel.confirm}
+            title={buttonsLabel.confirm}
           />
           <Button
             onClick={() => {
@@ -25,8 +37,8 @@ const Dialog = ({ closeToast, data }: ToastContentProps<string>) => {
             }}
             color='red'
             icon={<ThumbsDownIcon />}
-            aria-label='Cancelar ação e fechar'
-            title='Cancelar ação e fechar'
+            aria-label={buttonsLabel.cancel}
+            title={buttonsLabel.cancel}
           />
         </div>
       </div>

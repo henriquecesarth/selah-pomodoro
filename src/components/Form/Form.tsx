@@ -20,6 +20,32 @@ const Form = () => {
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
+  const messages = state.language === 'pt-BR' ? {
+    messageWarning: 'Digite o nome da tarefa',
+    messageSuccess: 'Tarefa iniciada',
+    messageError: 'Tarefa interrompida',
+  } : {
+    messageWarning: 'Enter the task name',
+    messageSuccess: 'Task started',
+    messageError: 'Task interrupted',
+  };
+
+  const inputLabels = state.language === 'pt-BR' ? {
+    labelText: 'Tarefa',
+    placeHolder: 'Digite o nome da tarefa',
+  } : {
+    labelText: 'Task',
+    placeHolder: 'Enter the task name',
+  };
+
+  const buttonLabels = state.language === 'pt-BR' ? {
+    start: 'Iniciar Tarefa',
+    stop: 'Parar Tarefa',
+  } : {
+    start: 'Start Task',
+    stop: 'Stop Task',
+  };
+
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     showMessage.dismiss();
@@ -29,7 +55,7 @@ const Form = () => {
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      showMessage.warning('Digite o nome da tarefa');
+      showMessage.warning(messages.messageWarning);
       return;
     }
 
@@ -44,22 +70,22 @@ const Form = () => {
     };
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
-    showMessage.success('Tarefa iniciada');
+    showMessage.success(messages.messageSuccess);
   };
 
   const handleStopTask = () => {
     dispatch({ type: TaskActionsTypes.STOP_TASK });
-    showMessage.error('Tarefa interrompida!');
+    showMessage.error(messages.messageError);
   };
 
   return (
     <form onSubmit={handleCreateNewTask} className={styles.form}>
       <div className={styles.formRow}>
         <Input
-          id='meuInput'
-          labelText='Tarefa'
+          id='myInput'
+          labelText={inputLabels.labelText}
           type='text'
-          placeholder='Digite uma tarefa'
+          placeholder={inputLabels.placeHolder}
           ref={taskNameInput}
           disabled={!!state.activeTask}
           defaultValue={lastTaskName}
@@ -77,8 +103,8 @@ const Form = () => {
         {state.activeTask && (
           <Button
             type='button'
-            aria-label='Parar tarefa'
-            title='Parar tarefa'
+            aria-label={buttonLabels.stop}
+            title={buttonLabels.stop}
             icon={<CircleStopIcon />}
             color='red'
             onClick={handleStopTask}
@@ -89,8 +115,8 @@ const Form = () => {
         {!state.activeTask && (
           <Button
             type='submit'
-            aria-label='Iniciar tarefa'
-            title='Iniciar tarefa'
+            aria-label={buttonLabels.start}
+            title={buttonLabels.start}
             icon={<CirclePlayIcon />}
             color='green'
             key='start-task-button'

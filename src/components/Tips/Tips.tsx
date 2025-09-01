@@ -8,13 +8,24 @@ type TipsProps = {
 const Tips = ({ nextCycleType }: TipsProps) => {
   const { state } = useTaskContext();
 
-  const tipsForWhenActiveTask = {
-    workTime: <span>Mantenha o foco e evite distrações.</span>,
-    shortBreakTime: <span>Aproveite para se alongar e relaxar.</span>,
-    longBreakTime: <span>Desconecte-se e faça algo que te relaxe.</span>,
-  };
+  const tipsForWhenActiveTask =
+    state.language === 'pt-BR'
+      ? {
+          workTime: <span>Mantenha o foco e evite distrações.</span>,
+          shortBreakTime: <span>Aproveite para se alongar e relaxar.</span>,
+          longBreakTime: <span>Desconecte-se e faça algo que te relaxe.</span>,
+        }
+      : {
+          workTime: <span>Maintain focus and avoid distractions.</span>,
+          shortBreakTime: (
+            <span>Take the opportunity to stretch and relax.</span>
+          ),
+          longBreakTime: (
+            <span>Disconnect and do something that relaxes you.</span>
+          ),
+        };
 
-  const tipsForWhenNotActiveTask = {
+  const tipsForWhenNotActiveTask = state.language === 'pt-BR' ? {
     workTime: (
       <span>
         Nesse ciclo
@@ -34,6 +45,28 @@ const Tips = ({ nextCycleType }: TipsProps) => {
         Nesse ciclo
         <strong> descanse </strong>
         por <strong>{state.config.longBreakTime} min.</strong>
+      </span>
+    ),
+  } : {
+    workTime: (
+      <span>
+        In this cycle
+        <strong> have focus </strong>
+        for <strong>{state.config.workTime} min.</strong>
+      </span>
+    ),
+    shortBreakTime: (
+      <span>
+        In this cycle
+        <strong> relax </strong>
+        for <strong>{state.config.shortBreakTime} min.</strong>
+      </span>
+    ),
+    longBreakTime: (
+      <span>
+        In this cycle
+        <strong> relax </strong>
+        for <strong>{state.config.longBreakTime} min.</strong>
       </span>
     ),
   };

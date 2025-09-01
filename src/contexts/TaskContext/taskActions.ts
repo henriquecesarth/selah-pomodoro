@@ -7,6 +7,7 @@ export enum TaskActionsTypes {
   COMPLETE_TASK = 'COMPLETE_TASK',
   RESET_TASKS = 'RESET_TASKS',
   SAVE_CONFIG = 'SAVE_CONFIG',
+  CHANGE_LANGUAGE = 'CHANGE_LANGUAGE',
 }
 
 export type TaskActionsWithPayload =
@@ -36,6 +37,9 @@ export type TaskActionsWithoutPayload =
     }
   | {
       type: TaskActionsTypes.RESET_TASKS;
+    }
+  | {
+      type: TaskActionsTypes.CHANGE_LANGUAGE;
     };
 
 export type TaskActionModel =

@@ -67,13 +67,23 @@ export const taskReducer = (
     case TaskActionsTypes.RESET_TASKS: {
       return {
         ...state,
-        tasks: state.tasks.filter((task) => task.id === state.activeTask?.id),
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
+        currentCycle: 0,
+        tasks: [],
       };
     }
     case TaskActionsTypes.SAVE_CONFIG: {
       return {
         ...state,
-        config: {...action.payload},
+        config: { ...action.payload },
+      };
+    }
+    case TaskActionsTypes.CHANGE_LANGUAGE: {
+      return {
+        ...state,
+        language: state.language === 'pt-BR' ? 'en-US' : 'pt-BR',
       };
     }
     default:

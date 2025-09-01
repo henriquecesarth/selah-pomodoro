@@ -27,7 +27,10 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
       activeTask: null,
     };
   });
-  
+
+  const messageSuccess =
+    state.language === 'pt-BR' ? 'Tarefa concluida' : 'Task completed';
+
   const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
 
   const worker = TimerWorkerManager.getInstance();
@@ -41,7 +44,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
 
       dispatch({ type: TaskActionsTypes.COMPLETE_TASK });
       worker.terminate();
-      showMessage.success('Tarefa concluída!');
+      showMessage.success(messageSuccess);
     } else {
       dispatch({
         type: TaskActionsTypes.COUNT_DOWN,
@@ -52,6 +55,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
 
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
+    document.documentElement.lang = state.language;
 
     if (!state.activeTask) {
       worker.terminate();
